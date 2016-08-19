@@ -15,6 +15,8 @@
 		62EAF2071D66F0E200AA2F71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 62EAF2051D66F0E200AA2F71 /* LaunchScreen.storyboard */; };
 		62EAF2121D66F0E300AA2F71 /* BulletDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF2111D66F0E300AA2F71 /* BulletDemoTests.m */; };
 		62EAF21D1D66F0E300AA2F71 /* BulletDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF21C1D66F0E300AA2F71 /* BulletDemoUITests.m */; };
+		62EAF22C1D66F12100AA2F71 /* BulletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF22B1D66F12100AA2F71 /* BulletView.m */; };
+		62EAF22F1D66F16500AA2F71 /* BulletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF22E1D66F16500AA2F71 /* BulletManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		62EAF2181D66F0E300AA2F71 /* BulletDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BulletDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		62EAF21C1D66F0E300AA2F71 /* BulletDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BulletDemoUITests.m; sourceTree = "<group>"; };
 		62EAF21E1D66F0E300AA2F71 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		62EAF22A1D66F12100AA2F71 /* BulletView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletView.h; sourceTree = "<group>"; };
+		62EAF22B1D66F12100AA2F71 /* BulletView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletView.m; sourceTree = "<group>"; };
+		62EAF22D1D66F16500AA2F71 /* BulletManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletManager.h; sourceTree = "<group>"; };
+		62EAF22E1D66F16500AA2F71 /* BulletManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +111,10 @@
 				62EAF1FB1D66F0E200AA2F71 /* AppDelegate.m */,
 				62EAF1FD1D66F0E200AA2F71 /* ViewController.h */,
 				62EAF1FE1D66F0E200AA2F71 /* ViewController.m */,
+				62EAF22A1D66F12100AA2F71 /* BulletView.h */,
+				62EAF22B1D66F12100AA2F71 /* BulletView.m */,
+				62EAF22D1D66F16500AA2F71 /* BulletManager.h */,
+				62EAF22E1D66F16500AA2F71 /* BulletManager.m */,
 				62EAF2001D66F0E200AA2F71 /* Main.storyboard */,
 				62EAF2031D66F0E200AA2F71 /* Assets.xcassets */,
 				62EAF2051D66F0E200AA2F71 /* LaunchScreen.storyboard */,
@@ -272,7 +282,9 @@
 			files = (
 				62EAF1FF1D66F0E200AA2F71 /* ViewController.m in Sources */,
 				62EAF1FC1D66F0E200AA2F71 /* AppDelegate.m in Sources */,
+				62EAF22C1D66F12100AA2F71 /* BulletView.m in Sources */,
 				62EAF1F91D66F0E200AA2F71 /* main.m in Sources */,
+				62EAF22F1D66F16500AA2F71 /* BulletManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
