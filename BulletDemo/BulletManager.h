@@ -8,6 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
+@class BulletView;
+
 @interface BulletManager : NSObject
+
+// 回调到viewcontroller添加bulletview
+@property (nonatomic, copy) void (^generateViewBlock)(BulletView *view);
+
+// 弹幕开始执行
+- (void)startBullet;
+
+// 弹幕停止执行
+- (void)stopBullet;
 
 @end
