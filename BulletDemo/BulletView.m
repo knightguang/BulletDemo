@@ -66,6 +66,25 @@
      *  UIViewAnimationOptionCurveLinear        //时间曲线函数，匀速
      */
     
+    if (self.moveStatusBlock) {
+        // 弹幕开始
+        self.moveStatusBlock(MoveStart);
+    }
+    
+    // t = s / v;
+    CGFloat speed = wholeWidth / duration;
+    CGFloat enterDuration = CGRectGetWidth(self.bounds) / speed + 0.15;
+    
+    [self performSelector:@selector(enterScreen) withObject:nil afterDelay:enterDuration];
+    
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(enterDuration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        if (self.moveStatusBlock) {
+//            // 该方法无法暂停
+//            self.moveStatusBlock(MoveEnter);
+//        }
+//    });
+    
     // 改变frame值
     __block CGRect frame = self.frame;
     
@@ -83,20 +102,30 @@
                        // 弹幕移出屏幕
                        [self removeFromSuperview];
                        
-                       // 状态回调
+                       // 状态回调，弹幕停止
                        if (self.moveStatusBlock) {
-                           self.moveStatusBlock();
+                           self.moveStatusBlock(MoveEnd);
                        }
     }];
-    
 }
 
 // 结束动画
 - (void)stopBulletAnimation
 {
+    // 取消执行延迟方法
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    
     [self.layer removeAllAnimations];// uiview 的 animation就是layer上的动画
     
     [self removeFromSuperview];
+}
+
+- (void)enterScreen
+{
+    if (self.moveStatusBlock) {
+        self.moveStatusBlock(MoveEnter);
+    }
+    
 }
 
 /**

@@ -12,6 +12,12 @@
 #define kScreenWidth    [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight    [UIScreen mainScreen].bounds.size.height
 
+typedef NS_ENUM(NSInteger, MoveStatus) {
+
+    MoveStart,  // 开始进入屏幕
+    MoveEnter,  // 完全进入屏幕
+    MoveEnd     // 移出屏幕
+};
 
 @interface BulletView : UIView
 
@@ -22,7 +28,7 @@
 /**
  *  弹道移动状态回调
  */
-@property (nonatomic, copy) void(^moveStatusBlock)();
+@property (nonatomic, copy) void(^moveStatusBlock)(MoveStatus status);
 
 /**
  *  初始化弹幕

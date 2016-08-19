@@ -38,11 +38,23 @@
     btn.frame = CGRectMake(100, 70, 100, 40);
     [btn addTarget:self action:@selector(startBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
+    
+    UIButton *btnStop = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btnStop setTitle:@"stop" forState:UIControlStateNormal];
+    [btnStop setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
+    btnStop.frame = CGRectMake(300, 70, 100, 40);
+    [btnStop addTarget:self action:@selector(stopAnimatiom) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnStop];
 }
 
 - (void)startBtnAction
 {
     [self.manager startBullet];
+    
+}
+- (void)stopAnimatiom
+{
+    [self.manager stopBullet];
     
 }
 

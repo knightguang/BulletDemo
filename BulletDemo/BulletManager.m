@@ -20,13 +20,31 @@
 // 存储弹幕view的数组
 @property (nonatomic, strong) NSMutableArray *bulletViews;
 
+@property (nonatomic, assign) BOOL isStopAnimation;
+
+
 @end
 
 
 @implementation BulletManager
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        // 刚开始弹幕是停止的
+        self.isStopAnimation = YES;
+    }
+    return self;
+}
+
 - (void)startBullet
 {
+    if (!self.isStopAnimation) {
+        return;
+    }
+    self.isStopAnimation = NO;
+    
     // 移除之前的弹幕
     [self.bulletComments removeAllObjects];
     
@@ -38,7 +56,19 @@
 
 - (void)stopBullet
 {
-
+    if (self.isStopAnimation) {
+        return;
+    }
+    self.isStopAnimation = YES;
+    
+    // 快速遍历弹幕数组，停止弹幕动画以及延迟加载数据，并删除数据
+    [self.bulletViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        
+        BulletView *view = obj;
+        [view stopBulletAnimation];
+        view = nil;
+    }];
+    [self.bulletViews removeAllObjects];
 }
 
 #pragma mark - 初始化弹幕，随机分配弹幕轨迹
@@ -71,6 +101,10 @@
 
 - (void)createBulletView:(NSString *)aComment withTrajectory:(int)trajectory
 {
+    if (self.isStopAnimation) {
+        return;
+    }
+    
     BulletView *view = [[BulletView alloc] initWithComment:aComment];
     view.trajectory = trajectory;
     
@@ -78,11 +112,45 @@
     
     __weak __typeof(view) weakView = view;
     __weak __typeof(self) weakSelf = self;
-    view.moveStatusBlock = ^{
+    view.moveStatusBlock = ^(MoveStatus status){
         
-        // 移出屏幕后销毁弹幕，并释放资源
-        [weakView stopBulletAnimation];
-        [weakSelf.bulletViews removeObject:weakView];
+        if (weakSelf.isStopAnimation) {
+            return;
+        }
+        
+        switch (status) {
+            case MoveStart:{
+                // 弹幕开始进入屏幕，将view加入到bulletViews中管理
+                [weakSelf.bulletViews addObject:weakView];
+                break;
+            }
+            case MoveEnter:{
+                // 弹幕完全进入到屏幕中，判断是否还有其他弹幕，如果有将在当前的弹道中创建一条弹幕
+                NSString *comment = [weakSelf nextComment];
+                
+                if (comment) {
+                    [weakSelf createBulletView:comment withTrajectory:trajectory];
+                }
+                break;
+            }
+            case MoveEnd:{
+                // 弹幕完全飞出屏幕后销毁弹幕，并释放资源
+                if ([weakSelf.bulletViews containsObject:weakView]) {
+                    [weakView stopBulletAnimation];
+                    [weakSelf.bulletViews removeObject:weakView];
+                }
+                
+                // 实现循环（应实际需求，确定是否需要）
+                if (weakSelf.bulletViews.count == 0) {
+                    // 说明屏幕上没有弹幕了，开始循环滚动
+                    weakSelf.isStopAnimation = YES;
+                    [weakSelf startBullet];
+                }
+                break;
+            }
+            default:
+                break;
+        }  
     };
     
     // 如果viewcontroller调用了这个block，那么将view回调viewcontroller，进行下一步操作
@@ -91,6 +159,17 @@
     }
 }
 
+- (NSString *)nextComment
+{
+    if (self.bulletComments.count == 0) {
+        return nil;
+    }
+    NSString *aComment = [self.bulletComments firstObject];
+    if (aComment) {
+        [self.bulletComments removeObjectAtIndex:0];
+    }
+    return aComment;
+}
 #pragma mark - 懒加载
 - (NSMutableArray *)dataSource
 {
