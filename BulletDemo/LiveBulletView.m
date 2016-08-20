@@ -1,26 +1,26 @@
 //
-//  BulletView.m
+//  LiveBulletView.m
 //  BulletDemo
 //
-//  Created by 光 on 16/8/19.
+//  Created by 光 on 16/8/20.
 //  Copyright © 2016年 光. All rights reserved.
 //
 
-#import "BulletView.h"
+#import "LiveBulletView.h"
 
 #define kCommentFontSize    14  // 弹幕的字体大小
 #define kPadding            10  // 弹幕子控件间隙
 #define kBulletHeight       30  // 弹幕高度
 #define kHeadImgViewHeight       30  // 头像高度
 
-@interface BulletView ()
+@interface LiveBulletView ()
 
 @property (nonatomic, strong) UILabel *commentLabel;
 @property (nonatomic, strong) UIImageView *headImgView;
 
 @end
 
-@implementation BulletView
+@implementation LiveBulletView
 
 // 初始化弹幕
 - (instancetype)initWithComment:(NSString *)comment
@@ -53,36 +53,31 @@
 }
 
 // 开始动画
-- (void)startBulletAnimation
+- (void)startLiveBulletAnimation
 {
     /**
      *  1、根据弹幕长度执行动画效果
-     *  2、根据 v = s / t ，固定时间，距离越长，移动速度越快
+     *  2、根据 v = s / t ，
+     *  当移动速度一致，此时 s 不同，所以 t 也不同，需要根据移动速度 设置 T的大小
      */
     
-    
-    // 固定时间
-    CGFloat duration = 4.0f;
     
     // 运动轨迹总长
     CGFloat wholeWidth = kScreenWidth + CGRectGetWidth(self.bounds);
     
-    // 开始动画
-    /** 时间函数曲线相关
-     *  UIViewAnimationOptionCurveEaseInOut     //时间曲线函数，由慢到快
-     *  UIViewAnimationOptionCurveEaseIn        //时间曲线函数，由慢到特别快
-     *  UIViewAnimationOptionCurveEaseOut       //时间曲线函数，由快到慢
-     *  UIViewAnimationOptionCurveLinear        //时间曲线函数，匀速
-     */
+    // 运动时间
+    CGFloat duration = [self computeDuration:wholeWidth];
     
+    // 开始动画
     if (self.moveStatusBlock) {
         // 弹幕开始
         self.moveStatusBlock(MoveStart);
     }
     
-    // t = s / v;
+    // t = s / v; s = 516 v = 130, 621-155,573-143,646-161,533-133
+    // 进入屏幕的时间
     CGFloat speed = wholeWidth / duration;
-    CGFloat enterDuration = CGRectGetWidth(self.bounds) / speed + 0.15;
+    CGFloat enterDuration = CGRectGetWidth(self.bounds) / speed + 0.1;
     
     [self performSelector:@selector(enterScreen) withObject:nil afterDelay:enterDuration];
     
@@ -97,21 +92,21 @@
                          // 弹幕滑动过程
                          frame.origin.x -= wholeWidth;
                          self.frame = frame;
-        
-                   } completion:^(BOOL finished) {
-                       
-                       // 弹幕移出屏幕
-                       [self removeFromSuperview];
-                       
-                       // 状态回调，弹幕停止
-                       if (self.moveStatusBlock) {
-                           self.moveStatusBlock(MoveEnd);
-                       }
-    }];
+                         
+                     } completion:^(BOOL finished) {
+                         
+                         // 弹幕移出屏幕
+                         [self removeFromSuperview];
+                         
+                         // 状态回调，弹幕停止
+                         if (self.moveStatusBlock) {
+                             self.moveStatusBlock(MoveEnd);
+                         }
+                     }];
 }
 
 // 结束动画
-- (void)stopBulletAnimation
+- (void)stopLiveBulletAnimation
 {
     // 取消执行延迟方法
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -126,7 +121,6 @@
     if (self.moveStatusBlock) {
         self.moveStatusBlock(MoveEnter);
     }
-    
 }
 
 /**
@@ -141,6 +135,13 @@
     return width;
 }
 
+- (CGFloat)computeDuration:(CGFloat)wholeWidth
+{
+    // t = s / v; s = 516 v = 130,,,, 621-155,573-143,646-161,533-133
+    CGFloat duration = wholeWidth / 130;
+    
+    return duration; //4;
+}
 #pragma mark - 懒加载
 - (UILabel *)commentLabel
 {
@@ -165,5 +166,6 @@
     }
     return _headImgView;
 }
+
 
 @end

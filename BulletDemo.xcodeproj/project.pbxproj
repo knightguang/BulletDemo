@@ -17,6 +17,10 @@
 		62EAF21D1D66F0E300AA2F71 /* BulletDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF21C1D66F0E300AA2F71 /* BulletDemoUITests.m */; };
 		62EAF22C1D66F12100AA2F71 /* BulletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF22B1D66F12100AA2F71 /* BulletView.m */; };
 		62EAF22F1D66F16500AA2F71 /* BulletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF22E1D66F16500AA2F71 /* BulletManager.m */; };
+		62EAF2341D67D0E600AA2F71 /* LiveBulletView.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF2331D67D0E600AA2F71 /* LiveBulletView.m */; };
+		62EAF2371D67D26500AA2F71 /* LiveBulletManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF2361D67D26500AA2F71 /* LiveBulletManager.m */; };
+		62EAF23A1D67D70900AA2F71 /* BulletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF2391D67D70900AA2F71 /* BulletViewController.m */; };
+		62EAF23D1D67D71400AA2F71 /* LiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 62EAF23C1D67D71400AA2F71 /* LiveViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,14 @@
 		62EAF22B1D66F12100AA2F71 /* BulletView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletView.m; sourceTree = "<group>"; };
 		62EAF22D1D66F16500AA2F71 /* BulletManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletManager.h; sourceTree = "<group>"; };
 		62EAF22E1D66F16500AA2F71 /* BulletManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletManager.m; sourceTree = "<group>"; };
+		62EAF2321D67D0E600AA2F71 /* LiveBulletView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveBulletView.h; sourceTree = "<group>"; };
+		62EAF2331D67D0E600AA2F71 /* LiveBulletView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveBulletView.m; sourceTree = "<group>"; };
+		62EAF2351D67D26500AA2F71 /* LiveBulletManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveBulletManager.h; sourceTree = "<group>"; };
+		62EAF2361D67D26500AA2F71 /* LiveBulletManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveBulletManager.m; sourceTree = "<group>"; };
+		62EAF2381D67D70900AA2F71 /* BulletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BulletViewController.h; sourceTree = "<group>"; };
+		62EAF2391D67D70900AA2F71 /* BulletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BulletViewController.m; sourceTree = "<group>"; };
+		62EAF23B1D67D71400AA2F71 /* LiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveViewController.h; sourceTree = "<group>"; };
+		62EAF23C1D67D71400AA2F71 /* LiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +123,12 @@
 				62EAF1FB1D66F0E200AA2F71 /* AppDelegate.m */,
 				62EAF1FD1D66F0E200AA2F71 /* ViewController.h */,
 				62EAF1FE1D66F0E200AA2F71 /* ViewController.m */,
-				62EAF22A1D66F12100AA2F71 /* BulletView.h */,
-				62EAF22B1D66F12100AA2F71 /* BulletView.m */,
-				62EAF22D1D66F16500AA2F71 /* BulletManager.h */,
-				62EAF22E1D66F16500AA2F71 /* BulletManager.m */,
+				62EAF2381D67D70900AA2F71 /* BulletViewController.h */,
+				62EAF2391D67D70900AA2F71 /* BulletViewController.m */,
+				62EAF23B1D67D71400AA2F71 /* LiveViewController.h */,
+				62EAF23C1D67D71400AA2F71 /* LiveViewController.m */,
+				62EAF2301D67CFF900AA2F71 /* Bullet */,
+				62EAF2311D67D01400AA2F71 /* liveBullet */,
 				62EAF2001D66F0E200AA2F71 /* Main.storyboard */,
 				62EAF2031D66F0E200AA2F71 /* Assets.xcassets */,
 				62EAF2051D66F0E200AA2F71 /* LaunchScreen.storyboard */,
@@ -148,6 +162,28 @@
 				62EAF21E1D66F0E300AA2F71 /* Info.plist */,
 			);
 			path = BulletDemoUITests;
+			sourceTree = "<group>";
+		};
+		62EAF2301D67CFF900AA2F71 /* Bullet */ = {
+			isa = PBXGroup;
+			children = (
+				62EAF22A1D66F12100AA2F71 /* BulletView.h */,
+				62EAF22B1D66F12100AA2F71 /* BulletView.m */,
+				62EAF22D1D66F16500AA2F71 /* BulletManager.h */,
+				62EAF22E1D66F16500AA2F71 /* BulletManager.m */,
+			);
+			name = Bullet;
+			sourceTree = "<group>";
+		};
+		62EAF2311D67D01400AA2F71 /* liveBullet */ = {
+			isa = PBXGroup;
+			children = (
+				62EAF2321D67D0E600AA2F71 /* LiveBulletView.h */,
+				62EAF2331D67D0E600AA2F71 /* LiveBulletView.m */,
+				62EAF2351D67D26500AA2F71 /* LiveBulletManager.h */,
+				62EAF2361D67D26500AA2F71 /* LiveBulletManager.m */,
+			);
+			name = liveBullet;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,11 +316,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				62EAF23A1D67D70900AA2F71 /* BulletViewController.m in Sources */,
+				62EAF2341D67D0E600AA2F71 /* LiveBulletView.m in Sources */,
 				62EAF1FF1D66F0E200AA2F71 /* ViewController.m in Sources */,
 				62EAF1FC1D66F0E200AA2F71 /* AppDelegate.m in Sources */,
 				62EAF22C1D66F12100AA2F71 /* BulletView.m in Sources */,
 				62EAF1F91D66F0E200AA2F71 /* main.m in Sources */,
+				62EAF23D1D67D71400AA2F71 /* LiveViewController.m in Sources */,
 				62EAF22F1D66F16500AA2F71 /* BulletManager.m in Sources */,
+				62EAF2371D67D26500AA2F71 /* LiveBulletManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +548,7 @@
 				62EAF2231D66F0E300AA2F71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		62EAF2241D66F0E300AA2F71 /* Build configuration list for PBXNativeTarget "BulletDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -516,6 +557,7 @@
 				62EAF2261D66F0E300AA2F71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		62EAF2271D66F0E300AA2F71 /* Build configuration list for PBXNativeTarget "BulletDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +566,7 @@
 				62EAF2291D66F0E300AA2F71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

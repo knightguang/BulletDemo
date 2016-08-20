@@ -7,13 +7,15 @@
 //
 
 #import "ViewController.h"
-#import "BulletView.h"
-#import "BulletManager.h"
+#import "BulletViewController.h"
+#import "LiveViewController.h"
 
+static NSString *cellId = @"CELL";
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic, strong) BulletManager *manager;
+@property (weak, nonatomic) IBOutlet UITableView *tbView;
+
 
 @end
 
@@ -23,51 +25,44 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.manager = [[BulletManager alloc] init];
-    
-    // 拿到弹幕
-    __weak __typeof(self) weakSelf = self;
-    self.manager.generateViewBlock = ^(BulletView *view){
-    
-        [weakSelf addBulletView:view];
-    };
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setTitle:@"start" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
-    btn.frame = CGRectMake(100, 70, 100, 40);
-    [btn addTarget:self action:@selector(startBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-    
-    UIButton *btnStop = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btnStop setTitle:@"stop" forState:UIControlStateNormal];
-    [btnStop setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
-    btnStop.frame = CGRectMake(300, 70, 100, 40);
-    [btnStop addTarget:self action:@selector(stopAnimatiom) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btnStop];
 }
 
-- (void)startBtnAction
+#pragma mark - UITableViewDataSource
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    [self.manager startBullet];
-    
+    return 2;
 }
-- (void)stopAnimatiom
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.manager stopBullet];
     
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc] init];
+    }
+    if (indexPath.row == 0) {
+        cell.textLabel.text = @"BulletView";
+    } else {
+        cell.textLabel.text = @"Live";
+    }
+    
+    return cell;
 }
 
-- (void)addBulletView:(BulletView *)view
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // y 的 300 也可 宏定义出来
-    view.frame = CGRectMake(kScreenWidth, 300 + view.trajectory*40, CGRectGetWidth(view.bounds), CGRectGetHeight(view.bounds));
-    [self.view addSubview:view];
-    
-    [view startBulletAnimation];
+    if (indexPath.row == 0) {
+        
+        BulletViewController *bulletVC = [[BulletViewController alloc] init];
+        [self.navigationController pushViewController:bulletVC animated:YES];
+        
+    } else if (indexPath.row == 1) {
+       
+        LiveViewController *liveVC = [[LiveViewController alloc] init];
+        [self.navigationController pushViewController:liveVC animated:YES];
+    }
 }
-
-
 
 
 - (void)didReceiveMemoryWarning {
